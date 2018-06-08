@@ -1,5 +1,5 @@
 // first ask for the degree to be computed
-console.log("════════════════════════════════════════════════════════════")
+console.log("═══════════════════════════")
 var stdin = process.openStdin();
 console.log("Input degree of polynomial: ")
 stdin.addListener("data", function(d) {
@@ -43,5 +43,5 @@ const compute = function (polynomialDegree) {
     combinationsArray.shift()
     console.log(combinationsArray);
     console.log("\n" + combinationsArray.length);
-    console.log("════════════════════════════════════════════════════════════")
+    console.log("═══════════════════════════")
 };
