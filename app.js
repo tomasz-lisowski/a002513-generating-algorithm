@@ -1,9 +1,6 @@
 /*
-1, 1, 3, 4, 9, 12, 23, 31, 54, 73
-0  1  2  3  4  5   6   7   8   9
-
 NOTE:
-  Ur_x  |  Rr_x  |  Ui_x  |  Ri_x
+Ur_x  |  Rr_x  |  Ui_x  |  Ri_x
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 Ur_x : x unique real roots
 Rr_x : x repeated real roots (multiple Rr groups inside array)
@@ -73,7 +70,7 @@ function compute (degree) {
 
 
     // print out the answer
-    console.log(combinationArray);
+    //console.log(combinationArray);
     console.log(combinationArray.length);
     // end time for computation
     performance.mark('B');
@@ -275,16 +272,14 @@ making sure partitions with groups
 smaller than minValueInPartition are not counted
 */
 function iterateAndPartition (array, index, minValueInPartition, realOrImaginary) {
-    console.log('Iterating and Partitioning...');
-
+    console.log('Iterating and Partitioning... ' + realOrImaginary);
     let partitionedArray = new Array();
     /*
     iterate over every element in array to check if at index
     the number can be partitioned
     */
     for (let i = 0; i < array.length; i++) {
-        // create array where the generated partitions will be stored
-        let partitions = new Array();
+        let partitions = [];
         /*
         when the number is larger than or equal 4
         it can be partitioned without the use of 1's (groups of size 1)
