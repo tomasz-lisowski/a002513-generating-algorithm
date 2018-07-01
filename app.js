@@ -26,6 +26,8 @@ const checkDegreeParity = function () {
 		}
 	}
 	else {
+		throw "Parameter is not a number!";
+		return;
 	}
 };
 
