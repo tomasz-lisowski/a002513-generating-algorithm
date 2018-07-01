@@ -1,3 +1,4 @@
+// 1, 1, 3, 4, 9, 12, 23, 31, 54, 73
 // first ask for the degree to be computed
 console.log("═══════════════════════════");
 var stdin = process.openStdin();
