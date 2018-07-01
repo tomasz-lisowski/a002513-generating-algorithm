@@ -96,3 +96,11 @@ const compute = function (polynomialDegree) {
 	repeatedRealArray = [];
 	masterSet = [];
 };
+
+// NOTE: 
+//	Ur_x	|	Rr_x	|	Ui_x	|	Ri_x
+// ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+// Ur_x : x unique real roots
+// Rr_x : x repeated real roots
+// Ui_x : x unique imaginary roots
+// Ur_x : x repeated imaginary roots
