@@ -55,23 +55,23 @@ const initiateArrays = function (parity) {
 	if (parity === 'odd' || parity === 'even') {
 		// initiate real arrays
 		integerSet.forEach(function(Ur) {
-			if (Ur === polynomialDegree) {
+			if (Ur == polynomialDegree) {
 				UrArray.push([Ur, 0, 0, 0]);
 			}
 		});
 		integerSet.forEach(function(Rr) {
-			if (Rr === polynomialDegree && Rr % 2 === 0 ) {
+			if (Rr == polynomialDegree && Rr % 2 === 0 ) {
 				RrArray.push([0, Rr, 0, 0]);
 			}
 		});
 		// initiate imaginary arrays
 		integerSet.forEach(function(Ui) {
-			if (Ui === polynomialDegree && Ui % 2 === 0) {
+			if (Ui == polynomialDegree && Ui % 2 === 0) {
 				UrArray.push([0, 0, Ui, 0]);
 			}
 		});
 		integerSet.forEach(function(Ri) {
-			if (Ri === polynomialDegree && Ri % 4 === 0) {
+			if (Ri == polynomialDegree && Ri % 4 === 0) {
 				RrArray.push([0, 0, 0, Ri]);
 			}
 		});
