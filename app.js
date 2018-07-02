@@ -8,7 +8,12 @@ console.log("══════════════════════�
 var stdin = process.openStdin();
 stdin.addListener("data", function(d) {
 	polynomialDegree = d.toString().trim();
-	compute(Number(polynomialDegree));
+	if (polynomialDegree === 0) {
+		return 1;
+	}
+	else {
+		compute(Number(polynomialDegree));
+	}
 });
 
 // create all arrays
