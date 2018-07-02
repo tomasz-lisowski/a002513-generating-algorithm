@@ -48,8 +48,21 @@ const checkDegreeParity = function () {
 
 // find the answer
 const compute = function (polynomialDegree) {
-	// create a combination of only unique real roots
+	// create one sort of root combination (Ur)
 	masterArray.push([polynomialDegree, 0, 0, 0]);
+	// create one sort of root combination (Rr, Ui)
+	for (let i = 0; i < polynomialDegree; i = i + 2) {
+		if (polynomialDegree % 2 === 0) {
+			masterArray.push([0, polynomialDegree, 0, 0]);
+			masterArray.push([0, 0, polynomialDegree, 0]);
+		}
+	}
+	// create one sort of root combination (Ri)
+	for (let i = 0; i < polynomialDegree; i = i + 4) {
+		if (polynomialDegree % 4 === 0) {
+			masterArray.push([0, 0, 0, polynomialDegree]);
+		}
+	}
 	// try if there can either be a repeated real root or two imaginary roots
 	for (let i = 2; i < polynomialDegree; i = i + 2) {
 		// check if first element will not equal 0 if i is subtracted from it
