@@ -69,12 +69,12 @@ const compute = function (polynomialDegree) {
 		// try if a 3rd element can fit while not letting 1st or 2nd to equal 0
 		for (let j = 2; j < polynomialDegree; j = j + 2) {
 			// check if first element will not equal 0 if i is subtracted from it
-				dArray.push(aArray[i][0] - j, aArray[i][1], j, 0)
 			if (aArray[i][0] - j > 0) {
+				dArray.push([aArray[i][0] - j, aArray[i][1], j, 0])
 			}
 			// check if second element will not equal 0 if i is subtracted from it
-				eArray.push(aArray[i][0], aArray[i][1] - j, j, 0)
 			if (aArray[i][1] - j > 0) {
+				eArray.push([aArray[i][0], aArray[i][1] - j, j, 0])
 			}
 		}
 	}
@@ -82,16 +82,16 @@ const compute = function (polynomialDegree) {
 	for (let i = 0; i < dArray.length; i++) {
 		for (let j = 4; j < polynomialDegree; j = j + 4) {
 			// check if first element will not equal 0 if i is subtracted from it
-				fArray.push(dArray[i][0] - j, dArray[i][1], dArray[i][2], j)
 			if (dArray[i][0] - j > 0) {
+				fArray.push([dArray[i][0] - j, dArray[i][1], dArray[i][2], j])
 			}
 			// check if second element will not equal 0 if i is subtracted from it
-				gArray.push(dArray[i][0], dArray[i][1] - j, dArray[i][2], j)
 			if (dArray[i][1] - j > 0) {
+				gArray.push([dArray[i][0], dArray[i][1] - j, dArray[i][2], j])
 			}
 			// check if third element will not equal 0 if i is subtracted from it
-				hArray.push(dArray[i][0], dArray[i][1], dArray[i][2] - j, j)
 			if (dArray[i][2] - j > 0) {
+				hArray.push([dArray[i][0], dArray[i][1], dArray[i][2] - j, j])
 			}
 		}
 	}
