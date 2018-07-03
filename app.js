@@ -38,45 +38,33 @@ const checkDegreeParity = function () {
 
 // create all possible combinations for a given polynomial degree
 const createMasterArray = function () {
-	let output = [];
 	let integers = [];
 	// generate integers to use to create combinatorics set
 	for (let i = 0; i <= polynomialDegree; i++) {
 		integers.push(i);
 	}
+
 	// create the combinatorics set
-	for (let i = 0; i <= integers.length - 1; i++) {
-		if (i <= polynomialDegree) {
-			// push Ur
-			output.push([i, 0, 0, 0]);
-			for (let j = 1; j <= integers.length - 1; j++) {
-				if (!(i === 0 && j === 0)) {
-					if (j <= polynomialDegree) {
-						// push Rr
-						output.push([i, j, 0, 0]);
-					}
-					for (let k = 1; k <= integers.length - 1; k++) {
-						if (!(i === 0 && j === 0 && k === 0)) {
-							if (k <= polynomialDegree) {
-								// push Ui
-								output.push([i, j, k, 0]);
-							}
-							for (let m = 1; m <= integers.length - 1; m++) {
-								if (!(i === 0 && j === 0 && k === 0 && m === 0)) {
-									if (m <= polynomialDegree) {
-										// push Ur
-										output.push([i, j, k, m]);
-									}
-								}
-							}
-						}
-					}
+	for (let i = 0; i < integers.length; i++) {
+		console.log('i ' + i);
+		// push Ur
+		masterArray.push([integers[i], 0, 0, 0]);
+		for (let j = 0; j < integers.length; j++) {
+			console.log('j ' + j);
+			// push Rr
+			masterArray.push([integers[i], integers[j], 0, 0]);
+			for (let k = 0; k < integers.length; k++) {
+				console.log('k ' + k);
+				// push Ui
+				masterArray.push([integers[i], integers[j], integers[k], 0]);
+				for (let m = 0; m < integers.length; m++) {
+					console.log('m ' + m);
+					// push Ur
+					masterArray.push([integers[i], integers[j], integers[k], integers[m]]);
 				}
 			}
 		}
 	}
-	console.log(output);
-	console.log(output.length);
 
 	var fs = require('fs');
 
@@ -93,7 +81,7 @@ const createMasterArray = function () {
 const compute = function () {
 	// keep parity as a local constant
 	var parity = checkDegreeParity(polynomialDegree);
-	createMasterArray(polynomialDegree);
+	createMasterArray();
 
 	// print out the answer
 	console.log(masterArray);
