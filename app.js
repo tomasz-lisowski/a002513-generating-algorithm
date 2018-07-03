@@ -12,22 +12,13 @@ stdin.addListener("data", function(d) {
 		return 1;
 	}
 	else {
-		compute(Number(polynomialDegree));
+		polynomialDegree = Number(polynomialDegree);
+		compute();
 	}
 });
 
 // create all arrays
-var integerSet = [];
 var masterArray = [];
-
-var aArray = [];
-var bArray = [];
-var cArray = [];
-var dArray = [];
-var eArray = [];
-var fArray = [];
-var gArray = [];
-var hArray = [];
 
 
 // is the degree odd or even?
@@ -45,111 +36,72 @@ const checkDegreeParity = function () {
 	}
 };
 
+// create all possible combinations for a given polynomial degree
+const createMasterArray = function () {
+	let output = [];
+	let integers = [];
+	// generate integers to use to create combinatorics set
+	for (let i = 0; i <= polynomialDegree; i++) {
+		integers.push(i);
+	}
+	// create the combinatorics set
+	for (let i = 0; i <= integers.length - 1; i++) {
+		if (i <= polynomialDegree) {
+			// push Ur
+			output.push([i, 0, 0, 0]);
+			for (let j = 1; j <= integers.length - 1; j++) {
+				if (!(i === 0 && j === 0)) {
+					if (j <= polynomialDegree) {
+						// push Rr
+						output.push([i, j, 0, 0]);
+					}
+					for (let k = 1; k <= integers.length - 1; k++) {
+						if (!(i === 0 && j === 0 && k === 0)) {
+							if (k <= polynomialDegree) {
+								// push Ui
+								output.push([i, j, k, 0]);
+							}
+							for (let m = 1; m <= integers.length - 1; m++) {
+								if (!(i === 0 && j === 0 && k === 0 && m === 0)) {
+									if (m <= polynomialDegree) {
+										// push Ur
+										output.push([i, j, k, m]);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	console.log(output);
+	console.log(output.length);
+
+	var fs = require('fs');
+
+	var file = fs.createWriteStream('array.txt');
+	file.on('error', function(err) { /* error handling */ });
+	output.forEach(function(v) {
+		file.write('[' + v.join(', ') + '],' + '\n');
+	});
+	file.write(output.length)
+	file.end();
+};
+
 // find the answer
-const compute = function (polynomialDegree) {
-	const parity = checkDegreeParity(polynomialDegree);
-
-	// create one sort of root combination (Ur)
-	masterArray.push([polynomialDegree, 0, 0, 0]);
-	if (polynomialDegree >= 2) {
-		// create one sort of root combination (Rr)
-		masterArray.push([0, polynomialDegree, 0, 0]);
-	}
-	if (polynomialDegree % 2 === 0) {
-		// create one sort of root combination (Ui)
-		masterArray.push([0, 0, polynomialDegree, 0]);
-	}
-	if (polynomialDegree % 4 === 0) {
-		// create one sort of root combination (Ri)
-		masterArray.push([0, 0, 0, polynomialDegree]);
-	}
-
-	// try if there can either be a repeated real root
-	for (let i = 1; i < polynomialDegree; i = i + 1) {
-		// check if Ur + Rr = polynomialDegree
-		if (masterArray[0][0] + i === polynomialDegree) {
-			aArray.push([masterArray[0][0] - i, i, 0, 0]);
-		}
-	}
-	// try if there can be unique imaginary roots with conjugate pair
-	for (let i = 2; i < polynomialDegree; i = i + 2) {
-		// check if first element will not equal 0 if i is subtracted from it
-		if (masterArray[0][0] + i === polynomialDegree) {
-			bArray.push([masterArray[0][0] - i, 0, i, 0]);
-		}
-	}
-
-	// try if there can be a multiplicity of imaginary roots
-	for (let i = 4; i < polynomialDegree; i = i + 4) {
-		// check if first element will not equal 0 if i is subtracted from it
-		if (masterArray[0][0] - i > 0) {
-			cArray.push([masterArray[0][0] - i, 0, 0, i]);
-		}
-	}
-	// make sure to run loop for every element in array A
-	for (let i = 0; i < aArray.length; i++) {
-		// try if a 3rd element can fit while not letting 1st or 2nd to equal 0
-		for (let j = 2; j < polynomialDegree; j = j + 2) {
-			// check if first element will not equal 0 if i is subtracted from it
-			if (aArray[i][0] - j > 0) {
-				dArray.push([aArray[i][0] - j, aArray[i][1], j, 0]);
-			}
-			// check if second element will not equal 0 if i is subtracted from it
-			if (aArray[i][1] - j > 0) {
-				eArray.push([aArray[i][0], aArray[i][1] - j, j, 0]);
-			}
-		}
-	}
-	// make sure to run loop for every element in array D
-	for (let i = 0; i < dArray.length; i++) {
-		for (let j = 4; j < polynomialDegree; j = j + 4) {
-			// check if first element will not equal 0 if i is subtracted from it
-			if (dArray[i][0] - j > 0) {
-				fArray.push([dArray[i][0] - j, dArray[i][1], dArray[i][2], j]);
-			}
-			// check if second element will not equal 0 if i is subtracted from it
-			if (dArray[i][1] - j > 0) {
-				gArray.push([dArray[i][0], dArray[i][1] - j, dArray[i][2], j]);
-			}
-			// check if third element will not equal 0 if i is subtracted from it
-			if (dArray[i][2] - j > 0) {
-				hArray.push([dArray[i][0], dArray[i][1], dArray[i][2] - j, j]);
-			}
-		}
-	}
-
-	// TODO: generate Rr, Ui and Ri for situations where one root combination has value other than 0
-	// i.e [0,0,0,1] [0.4.0.0]
-	// Ur is already getting generated and pushed to masterArray
-
-	// combine arrays to master array (answer)
-	masterArray.push(...aArray);
-	masterArray.push(...bArray);
-	masterArray.push(...cArray);
-	masterArray.push(...dArray);
-	masterArray.push(...fArray);
-	masterArray.push(...gArray);
-	masterArray.push(...hArray);
-
+const compute = function () {
+	// keep parity as a local constant
+	var parity = checkDegreeParity(polynomialDegree);
+	createMasterArray(polynomialDegree);
 
 	// print out the answer
-	//console.log(aArray);
 	console.log(masterArray);
 	console.log(masterArray.length);
 	console.log("═══════════════════════════");
 
 	// clear arrays after computation
-	integerSet = [];
 	masterArray = [];
-
-	aArray = [];
-	bArray = [];
-	cArray = [];
-	dArray = [];
-	eArray = [];
-	fArray = [];
-	gArray = [];
-	hArray = [];
 };
 
 // NOTE:
