@@ -17,10 +17,6 @@ stdin.addListener("data", function(d) {
 	}
 });
 
-// create all arrays
-var masterArray = [];
-
-
 // is the degree odd or even?
 const checkDegreeParity = function () {
 	if (isNaN(polynomialDegree) === false) {
@@ -38,6 +34,7 @@ const checkDegreeParity = function () {
 
 // create all possible combinations for a given polynomial degree
 const createMasterArray = function () {
+	let array = [];
 	let integers = [];
 	// generate integers to use to create combinatorics set
 	for (let i = 0; i <= polynomialDegree; i++) {
@@ -47,28 +44,28 @@ const createMasterArray = function () {
 	// create the combinatorics set
 	for (let i = 0; i < integers.length; i++) {
 		// push Ur
-		masterArray.push([integers[i], 0, 0, 0]);
+		array.push([integers[i], 0, 0, 0]);
 		for (let j = 0; j < integers.length; j++) {
 			if (j !== 0) {
 				// push Rr
-				masterArray.push([integers[i], integers[j], 0, 0]);
+				array.push([integers[i], integers[j], 0, 0]);
 			}
 			for (let k = 0; k < integers.length; k++) {
 				if (k !== 0) {
 					// push Ui
-					masterArray.push([integers[i], integers[j], integers[k], 0]);
+					array.push([integers[i], integers[j], integers[k], 0]);
 				}
 				for (let m = 0; m < integers.length; m++) {
 					if (m !== 0) {
 						// push Ur
-						masterArray.push([integers[i], integers[j], integers[k], integers[m]]);
+						array.push([integers[i], integers[j], integers[k], integers[m]]);
 					}
 				}
 			}
 		}
 	}
-
-	var fs = require('fs');
+	// write all combinations to a file
+	// var fs = require('fs');
 	//
 	// var file = fs.createWriteStream('array.txt');
 	// file.on('error', function(err) { /* error handling */ });
@@ -77,15 +74,20 @@ const createMasterArray = function () {
 	// });
 	// file.write(output.length)
 	// file.end();
+	return array;
 };
 
-};
+const filterArray = function (array) {
+	return array;
+}
 
 // find the answer
 const compute = function () {
+
 	// keep parity as a local constant
-	var parity = checkDegreeParity(polynomialDegree);
-	createMasterArray();
+	let parity = checkDegreeParity(polynomialDegree);
+	let masterArray = createMasterArray();
+	masterArray = filterArray(masterArray);
 
 	// print out the answer
 	console.log(masterArray);
