@@ -8,8 +8,9 @@ console.log("══════════════════════�
 var stdin = process.openStdin();
 stdin.addListener("data", function(d) {
 	polynomialDegree = d.toString().trim();
-	if (polynomialDegree === 0) {
-		return 1;
+	if (polynomialDegree == 0) {
+		console.log(1);
+		console.log("═══════════════════════════");
 	}
 	else {
 		polynomialDegree = Number(polynomialDegree);
