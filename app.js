@@ -6,8 +6,8 @@ var polynomialDegree = 0;
 console.log("\n" + "Input degree of polynomial: ");
 console.log("═══════════════════════════");
 var stdin = process.openStdin();
-stdin.addListener("data", function(d) {
-	polynomialDegree = d.toString().trim();
+stdin.addListener("data", function(input) {
+	polynomialDegree = input.toString().trim();
 	if (polynomialDegree == 0) {
 		console.log(1);
 		console.log("═══════════════════════════");
