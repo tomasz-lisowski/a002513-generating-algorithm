@@ -46,35 +46,39 @@ const createMasterArray = function () {
 
 	// create the combinatorics set
 	for (let i = 0; i < integers.length; i++) {
-		console.log('i ' + i);
 		// push Ur
 		masterArray.push([integers[i], 0, 0, 0]);
 		for (let j = 0; j < integers.length; j++) {
-			console.log('j ' + j);
-			// push Rr
-			masterArray.push([integers[i], integers[j], 0, 0]);
+			if (j !== 0) {
+				// push Rr
+				masterArray.push([integers[i], integers[j], 0, 0]);
+			}
 			for (let k = 0; k < integers.length; k++) {
-				console.log('k ' + k);
-				// push Ui
-				masterArray.push([integers[i], integers[j], integers[k], 0]);
+				if (k !== 0) {
+					// push Ui
+					masterArray.push([integers[i], integers[j], integers[k], 0]);
+				}
 				for (let m = 0; m < integers.length; m++) {
-					console.log('m ' + m);
-					// push Ur
-					masterArray.push([integers[i], integers[j], integers[k], integers[m]]);
+					if (m !== 0) {
+						// push Ur
+						masterArray.push([integers[i], integers[j], integers[k], integers[m]]);
+					}
 				}
 			}
 		}
 	}
 
 	var fs = require('fs');
+	//
+	// var file = fs.createWriteStream('array.txt');
+	// file.on('error', function(err) { /* error handling */ });
+	// output.forEach(function(v) {
+	// 	file.write('[' + v.join(', ') + '],' + '\n');
+	// });
+	// file.write(output.length)
+	// file.end();
+};
 
-	var file = fs.createWriteStream('array.txt');
-	file.on('error', function(err) { /* error handling */ });
-	output.forEach(function(v) {
-		file.write('[' + v.join(', ') + '],' + '\n');
-	});
-	file.write(output.length)
-	file.end();
 };
 
 // find the answer
