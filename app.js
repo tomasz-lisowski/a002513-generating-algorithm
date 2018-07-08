@@ -78,6 +78,17 @@ const createMasterArray = function () {
 };
 
 const filterArray = function (array) {
+	for (let i = array.length - 1; i > -1; i--) {
+		if (
+			// check if all elements added together
+			// are not equal more than polynomial degree
+			(array[i][0] + array[i][1] + array[i][2] + array[i][3] > polynomialDegree) ||
+			//  check if all elements are zeros (which would suggest no roots which is invalid)
+			(array[i][0] === 0 && array[i][1] === 0 && array[i][2] === 0 && array[i][3] === 0)
+		) {
+			array.splice(i, 1);
+		}
+	}
 	return array;
 }
 
