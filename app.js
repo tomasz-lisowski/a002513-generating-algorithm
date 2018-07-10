@@ -26,13 +26,16 @@ stdin.addListener("data", function(input) {
 // is the degree odd or even?
 const checkParity = function (number) {
 	if (isNaN(number) === false) {
+		// check if remainder after dividing input by 2 is not 0
 		if (number % 2 !== 0) {
 			return 'odd';
 		}
+		// check if remainder after dividing input by 2 is 0
 		else if (number % 2 === 0) {
 			return 'even';
 		}
 	}
+	// it's not a number
 	else {
 		throw "Parameter is not a number!";
 	}
@@ -70,29 +73,26 @@ const createMasterArray = function (degree) {
 			}
 		}
 	}
-	// write all combinations to a file
-	// var fs = require('fs');
-	//
+	//write all combinations to a file
 	// var file = fs.createWriteStream('array.txt');
 	// file.on('error', function(err) { /* error handling */ });
-	// output.forEach(function(v) {
-	// 	file.write('[' + v.join(', ') + '],' + '\n');
+	// array.forEach(function(numberSet) {
+	// 	file.write('[' + numberSet.join(', ') + '],' + '\n');
 	// });
-	// file.write(output.length)
+	// file.write(array.length)
 	// file.end();
 	return array;
 };
 
-const filterArray = function (array) {
 const filterArray = function (array, degree) {
+	// count down from highest number down to 0
+	// to ignore any indexing problems from splicing
 	for (let i = array.length - 1; i > -1; i--) {
 		if (
 			// check if all elements added together
-			// are not equal more than polynomial degree
-			(array[i][0] + array[i][1] + array[i][2] + array[i][3] > polynomialDegree) ||
-			//  check if all elements are zeros (which would suggest no roots which is invalid)
-			(array[i][0] === 0 && array[i][1] === 0 && array[i][2] === 0 && array[i][3] === 0)
+			// are not equal the polynomial degree
 			(array[i][0] + array[i][1] + array[i][2] + array[i][3] !== degree)
+			// check if all elements are zeros (which would suggest no roots which is invalid)
 		) {
 			array.splice(i, 1);
 		}
