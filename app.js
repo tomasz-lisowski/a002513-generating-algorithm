@@ -1,20 +1,19 @@
 // 1, 1, 3, 4, 9, 12, 23, 31, 54, 73
 // first ask for the degree to be computed
 
-var polynomialDegree = 0;
 
 console.log("\n" + "Input degree of polynomial: ");
 console.log("═══════════════════════════");
 var stdin = process.openStdin();
 stdin.addListener("data", function(input) {
-	polynomialDegree = input.toString().trim();
-	if (polynomialDegree == 0) {
+	const polynomialDegree = Number(input.toString().trim());
+	if (polynomialDegree === 0) {
 		console.log(1);
 		console.log("═══════════════════════════");
 	}
+	// otherwise just compute
 	else {
-		polynomialDegree = Number(polynomialDegree);
-		compute();
+		compute(polynomialDegree);
 	}
 });
 
@@ -34,11 +33,11 @@ const checkDegreeParity = function () {
 };
 
 // create all possible combinations for a given polynomial degree
-const createMasterArray = function () {
+const createMasterArray = function (degree) {
 	let array = [];
 	let integers = [];
 	// generate integers to use to create combinatorics set
-	for (let i = 0; i <= polynomialDegree; i++) {
+	for (let i = 0; i <= degree; i++) {
 		integers.push(i);
 	}
 
@@ -79,6 +78,7 @@ const createMasterArray = function () {
 };
 
 const filterArray = function (array) {
+const filterArray = function (array, degree) {
 	for (let i = array.length - 1; i > -1; i--) {
 		if (
 			// check if all elements added together
@@ -86,6 +86,7 @@ const filterArray = function (array) {
 			(array[i][0] + array[i][1] + array[i][2] + array[i][3] > polynomialDegree) ||
 			//  check if all elements are zeros (which would suggest no roots which is invalid)
 			(array[i][0] === 0 && array[i][1] === 0 && array[i][2] === 0 && array[i][3] === 0)
+			(array[i][0] + array[i][1] + array[i][2] + array[i][3] !== degree)
 		) {
 			array.splice(i, 1);
 		}
@@ -94,12 +95,12 @@ const filterArray = function (array) {
 }
 
 // find the answer
-const compute = function () {
+const compute = function (degree) {
 
 	// keep parity as a local constant
-	let parity = checkDegreeParity(polynomialDegree);
-	let masterArray = createMasterArray();
-	masterArray = filterArray(masterArray);
+	let parity = checkParity(degree);
+	let masterArray = createMasterArray(degree);
+	nasterArray = filterArray(masterArray, degree);
 
 	// print out the answer
 	console.log(masterArray);
