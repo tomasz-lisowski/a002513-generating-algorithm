@@ -97,6 +97,19 @@ const filterArray = function (array, degree) {
 			array.splice(i, 1);
 		}
 	}
+	// set different filters for different polynomial degree parity
+	for (let i = array.length - 1; i > -1; i--) {
+		if (checkParity(degree) === 'even') {
+			if (checkParity(array[i][0] + array[i][1]) !== 'even') {
+				array.splice(i, 1);
+			}
+		}
+		else if (checkParity(degree) === 'odd') {
+			if (checkParity(array[i][0] + array[i][1]) !== 'odd') {
+				array.splice(i, 1);
+			}
+		}
+	}
 	return array;
 }
 
