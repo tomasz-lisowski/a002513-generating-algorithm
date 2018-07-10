@@ -1,12 +1,18 @@
+var fs = require('fs');
+
 // 1, 1, 3, 4, 9, 12, 23, 31, 54, 73
+
 // first ask for the degree to be computed
-
-
+// print out what is asked from the user
 console.log("\n" + "Input degree of polynomial: ");
 console.log("═══════════════════════════");
+// allow input
 var stdin = process.openStdin();
+// listen for input
 stdin.addListener("data", function(input) {
+	// make data type an integer and a constant
 	const polynomialDegree = Number(input.toString().trim());
+	// check if input is equal to zero
 	if (polynomialDegree === 0) {
 		console.log(1);
 		console.log("═══════════════════════════");
@@ -18,12 +24,12 @@ stdin.addListener("data", function(input) {
 });
 
 // is the degree odd or even?
-const checkDegreeParity = function () {
-	if (isNaN(polynomialDegree) === false) {
-		if (polynomialDegree % 2 !== 0) {
+const checkParity = function (number) {
+	if (isNaN(number) === false) {
+		if (number % 2 !== 0) {
 			return 'odd';
 		}
-		else if (polynomialDegree % 2 === 0) {
+		else if (number % 2 === 0) {
 			return 'even';
 		}
 	}
