@@ -1,6 +1,7 @@
 var fs = require('fs');
 
 // 1, 1, 3, 4, 9, 12, 23, 31, 54, 73
+// 0  1  2  3  4  5   6   7   8   9
 
 // first ask for the degree to be computed
 // print out what is asked from the user
@@ -37,7 +38,7 @@ function checkParity (number) {
 	}
 	// it's not a number
 	else {
-		throw "Parameter is not a number!";
+		throw new Error('Parameter is not a number!');
 	}
 };
 
@@ -45,7 +46,7 @@ function checkParity (number) {
 function createMasterArray (degree) {
 	let array = [];
 	let integers = [];
-	// generate integers to use to create combinatorics set
+	// generate integers used to create combinatorics set
 	for (let i = 0; i <= degree; i++) {
 		integers.push(i);
 	}
