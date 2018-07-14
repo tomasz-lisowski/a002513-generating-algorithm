@@ -24,7 +24,7 @@ stdin.addListener("data", function(input) {
 });
 
 // is the degree odd or even?
-const checkParity = function (number) {
+function checkParity (number) {
 	if (isNaN(number) === false) {
 		// check if remainder after dividing input by 2 is not 0
 		if (number % 2 !== 0) {
@@ -42,7 +42,7 @@ const checkParity = function (number) {
 };
 
 // create all possible combinations for a given polynomial degree
-const createMasterArray = function (degree) {
+function createMasterArray (degree) {
 	let array = [];
 	let integers = [];
 	// generate integers to use to create combinatorics set
@@ -73,6 +73,7 @@ const createMasterArray = function (degree) {
 			}
 		}
 	}
+
 	//write all combinations to a file
 	// var file = fs.createWriteStream('array.txt');
 	// file.on('error', function(err) { /* error handling */ });
@@ -84,7 +85,7 @@ const createMasterArray = function (degree) {
 	return array;
 };
 
-const filterArray = function (array, degree) {
+function filterArray (array, degree) {
 	// count down from highest number down to 0
 	// to ignore any indexing problems from splicing
 	for (let i = array.length - 1; i > -1; i--) {
@@ -114,7 +115,7 @@ const filterArray = function (array, degree) {
 }
 
 // find the answer
-const compute = function (degree) {
+function compute (degree) {
 
 	// keep parity as a local constant
 	let parity = checkParity(degree);
