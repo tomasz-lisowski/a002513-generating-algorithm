@@ -1,10 +1,23 @@
+/*
+	1, 1, 3, 4, 9, 12, 23, 31, 54, 73
+	0  1  2  3  4  5   6   7   8   9
+
+    NOTE:
+	Ur_x	|	Rr_x	|	Ui_x	|	Ri_x
+	‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+	Ur_x : x unique real roots
+	Rr_x : x repeated real roots (multiple Rr groups inside array)
+	Ui_x : x unique imaginary roots
+	Ur_x : x repeated imaginary roots
+*/
+
 var fs = require('fs');
 
-// 1, 1, 3, 4, 9, 12, 23, 31, 54, 73
-// 0  1  2  3  4  5   6   7   8   9
 
-// first ask for the degree to be computed
-// print out what is asked from the user
+/*
+    first ask for the degree to be computed
+    print out what is asked from the user
+*/
 console.log("\n" + "Input degree of polynomial: ");
 console.log("═══════════════════════════");
 // allow input
@@ -24,26 +37,21 @@ stdin.addListener("data", function(input) {
 	}
 });
 
-// is the degree odd or even?
-function checkParity (number) {
-	if (isNaN(number) === false) {
-		// check if remainder after dividing input by 2 is not 0
-		if (number % 2 !== 0) {
-			return 'odd';
-		}
-		// check if remainder after dividing input by 2 is 0
-		else if (number % 2 === 0) {
-			return 'even';
-		}
-	}
-	// it's not a number
-	else {
-		throw new Error('Parameter is not a number!');
-	}
+// find the answer
+function compute (degree) {
+
+	// keep parity as a local constant
+	let parity = checkParity(degree);
+	let combinationArray = createCombinationArray(degree);
+    combinationArray = filterArray(combinationArray, degree);
+	// print out the answer
+	//console.log(combinationArray);
+	console.log(combinationArray.length);
+	console.log("═══════════════════════════");
 };
 
 // create all possible combinations for a given polynomial degree
-function createMasterArray (degree) {
+function createCombinationArray (degree) {
 	let array = [];
 	let integers = [];
 	// generate integers used to create combinatorics set
@@ -75,26 +83,56 @@ function createMasterArray (degree) {
 		}
 	}
 
-	//write all combinations to a file
-	// var file = fs.createWriteStream('array.txt');
-	// file.on('error', function(err) { /* error handling */ });
-	// array.forEach(function(numberSet) {
-	// 	file.write('[' + numberSet.join(', ') + '],' + '\n');
-	// });
-	// file.write(array.length)
-	// file.end();
+	// write all combinations to a file
+	var file = fs.createWriteStream('array.txt');
+	file.on('error', function(err) { /* error handling */ });
+	array.forEach(function(numberSet) {
+	file.write('[' + numberSet.join(', ') + '],' + '\n');
+	});
+	file.write(array.length)
+	file.end();
+
 	return array;
 };
 
+// is the degree odd or even?
+function checkParity (number) {
+	if (isNaN(number) === false) {
+		// check if remainder after dividing input by 2 is not 0
+		if (number % 2 !== 0) {
+			return 'odd';
+		}
+		// check if remainder after dividing input by 2 is 0
+		else if (number % 2 === 0) {
+			return 'even';
+		}
+	}
+	// it's not a number
+	else {
+		throw new Error('Parameter is not a number!');
+	}
+};
+
+/*
+    function to take a combination array and get rid of impossible scenarios
+	which do not follow rules of polynomial root combinations
+*/
 function filterArray (array, degree) {
-	// count down from highest number down to 0
-	// to ignore any indexing problems from splicing
+	/*
+        count down from highest number down to 0
+        to ignore any indexing problems from splicing
+    */
 	for (let i = array.length - 1; i > -1; i--) {
 		if (
-			// check if all elements added together
-			// are not equal the polynomial degree
+			/*
+                check if all elements added together
+                are not equal the polynomial degree
+            */
 			(array[i][0] + array[i][1] + array[i][2] + array[i][3] !== degree)
-			// check if all elements are zeros (which would suggest no roots which is invalid)
+			/*
+                check if all elements are zeros
+                (which would suggest no roots which is invalid)
+            */
 		) {
 			array.splice(i, 1);
 		}
@@ -102,40 +140,19 @@ function filterArray (array, degree) {
 	// set different filters for different polynomial degree parity
 	for (let i = array.length - 1; i > -1; i--) {
 		if (checkParity(degree) === 'even') {
+			// check if there are not even number of real roots
 			if (checkParity(array[i][0] + array[i][1]) !== 'even') {
+				// otherwise delete that element
 				array.splice(i, 1);
 			}
 		}
 		else if (checkParity(degree) === 'odd') {
+			// check if there are not odd number of real roots
 			if (checkParity(array[i][0] + array[i][1]) !== 'odd') {
+				// otherwise delete that element
 				array.splice(i, 1);
 			}
 		}
 	}
 	return array;
 }
-
-// find the answer
-function compute (degree) {
-
-	// keep parity as a local constant
-	let parity = checkParity(degree);
-	let masterArray = createMasterArray(degree);
-	nasterArray = filterArray(masterArray, degree);
-
-	// print out the answer
-	console.log(masterArray);
-	console.log(masterArray.length);
-	console.log("═══════════════════════════");
-
-	// clear arrays after computation
-	masterArray = [];
-};
-
-// NOTE:
-//	Ur_x	|	Rr_x	|	Ui_x	|	Ri_x
-// ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-// Ur_x : x unique real roots
-// Rr_x : x repeated real roots
-// Ui_x : x unique imaginary roots
-// Ur_x : x repeated imaginary roots
