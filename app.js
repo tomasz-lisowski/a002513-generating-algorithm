@@ -13,6 +13,12 @@
 
 var fs = require('fs');
 
+const { PerformanceObserver, performance } = require('perf_hooks');
+const obs = new PerformanceObserver((items) => {
+  console.log(items.getEntries()[0].duration);
+  performance.clearMarks();
+});
+obs.observe({ entryTypes: ['measure'] });
 
 /*
     first ask for the degree to be computed
@@ -39,6 +45,8 @@ stdin.addListener("data", function(input) {
 
 // find the answer
 function compute (degree) {
+	// start time for computation
+	performance.mark('A');
 
 	// keep parity as a local constant
 	let parity = checkParity(degree);
@@ -47,6 +55,10 @@ function compute (degree) {
 	// print out the answer
 	//console.log(combinationArray);
 	console.log(combinationArray.length);
+	// end time for computation
+	performance.mark('B');
+	// instruct what to measure
+	performance.measure('A to B', 'A', 'B');
 	console.log("═══════════════════════════");
 };
 
