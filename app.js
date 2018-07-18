@@ -177,14 +177,14 @@ function* partition(n) {
 		throw new Error('n must be a positive integer');
 	}
 	/*
-        return number itself [number]
+        return number itself [ number ]
         basically a sum of one integer
     */
     yield [ n ];
 
 	// working array
     let array = new Array(n);
-	// set first element to be equal number (the one to be partitioned)
+	// set first element to be equal n
     array[ 0 ] = n;
 	// fill the empty items in array with 1's
     for (let i = 1; i < n; i++) array[ i ] = 1;
@@ -196,7 +196,7 @@ function* partition(n) {
     */
     let length = 0, indexPointer = 0, remainder, difference;
 	/*
-        check if first element did not reach 1 otherwise it reached [1,1,1....]
+        check if first element did not reach 1 otherwise it reached [ 1, 1, 1.... ]
         which is the last partition
     */
     while (array[ 0 ] != 1) {
@@ -232,10 +232,6 @@ function* partition(n) {
             }
         }
 		// add one to length to allign it with indexes
-        console.log('difference ' + difference);
-        console.log('remainder ' + remainder);
-        console.log('length ' + length);
-        console.log('index pointer ' + indexPointer);
         yield array.slice(0, n);
     }
 	return array;
