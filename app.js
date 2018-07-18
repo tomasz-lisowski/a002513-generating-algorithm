@@ -232,7 +232,7 @@ function* partition(n) {
             }
         }
 		// add one to length to allign it with indexes
-        yield array.slice(0, n);
+        yield array.slice(0, length + 1);
     }
 	return array;
 }
