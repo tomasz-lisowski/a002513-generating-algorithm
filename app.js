@@ -168,3 +168,75 @@ function filterArray (array, degree) {
 	}
 	return array;
 }
+
+function* partition(n) {
+    "use strict";
+
+	// check if the number to be partitioned is a positive integer
+    if (n <= 0) {
+		throw new Error('n must be a positive integer');
+	}
+	/*
+        return number itself [number]
+        basically a sum of one integer
+    */
+    yield [ n ];
+
+	// working array
+    let array = new Array(n);
+	// set first element to be equal number (the one to be partitioned)
+    array[ 0 ] = n;
+	// fill the empty items in array with 1's
+    for (let i = 1; i < n; i++) array[ i ] = 1;
+
+	/*
+        define variables at the start
+        length is the amount of elements in current partition
+        when returning result (-1)
+    */
+    let length = 0, indexPointer = 0, remainder, difference;
+	/*
+        check if first element did not reach 1 otherwise it reached [1,1,1....]
+        which is the last partition
+    */
+    while (array[ 0 ] != 1) {
+		/*
+            check if at indexPointer index there is a 2 this would mean
+            more integers are needed for current partition
+            so length will increase by one
+        */
+        if (array[ indexPointer ] == 2) {
+            length += 1;
+            array[ indexPointer ] = 1;
+            indexPointer -= 1;
+        }
+        // otherwise
+		else {
+            remainder = array[ indexPointer ] - 1;
+            array[ indexPointer ] = remainder;
+
+            difference = length- indexPointer + 1;
+            /*
+                a number with smaller index must have larger value
+                this while loop will make sure that happens
+            */
+            while (difference >= remainder) {
+                indexPointer += 1;
+                array[ indexPointer ] = remainder;
+                difference -= remainder;
+            }
+            length = indexPointer + (difference !== 0 ? 1 : 0);
+            if (difference > 1) {
+                indexPointer += 1;
+                array[ indexPointer ] = difference;
+            }
+        }
+		// add one to length to allign it with indexes
+        console.log('difference ' + difference);
+        console.log('remainder ' + remainder);
+        console.log('length ' + length);
+        console.log('index pointer ' + indexPointer);
+        yield array.slice(0, n);
+    }
+	return array;
+}
