@@ -134,43 +134,60 @@ function to take a combination array and get rid of impossible scenarios
 which do not follow rules of polynomial root combinations
 */
 function filterArray (array, degree) {
-	/*
-        count down from highest number down to 0
-        to ignore any indexing problems from splicing
+    console.log('Filtering Array...');
+    /*
+    count down from highest number down to 0
+    to ignore any indexing problems from splicing
     */
-	for (let i = array.length - 1; i > -1; i--) {
-		if (
-			/*
-                check if all elements added together
-                are not equal the polynomial degree
+    for (let i = array.length - 1; i > -1; i--) {
+        if (
+            /*
+            check if all elements added together
+            are not equal the polynomial degree
+            this also makes sure no all elements are zeros
+            (which would suggest no roots which is invalid)
             */
-			(array[i][0] + array[i][1] + array[i][2] + array[i][3] !== degree)
-			/*
-                check if all elements are zeros
-                (which would suggest no roots which is invalid)
+            (array[i][0] + array[i][1] + array[i][2] + array[i][3] !== degree) ||
+            /*
+            make sure there are atleast 2 Ui
+            because they appear in conjugate pairs
+            (there could also be none)
             */
-		) {
-			array.splice(i, 1);
-		}
-	}
-	// set different filters for different polynomial degree parity
-	for (let i = array.length - 1; i > -1; i--) {
-		if (checkParity(degree) === 'even') {
-			// check if there are not even number of real roots
-			if (checkParity(array[i][0] + array[i][1]) !== 'even') {
-				// otherwise delete that element
-				array.splice(i, 1);
-			}
-		}
-		else if (checkParity(degree) === 'odd') {
-			// check if there are not odd number of real roots
-			if (checkParity(array[i][0] + array[i][1]) !== 'odd') {
-				// otherwise delete that element
-				array.splice(i, 1);
-			}
-		}
-	}
-	return array;
+            !(XOR((array[i][2] === 0), (array[i][2] >= 2))) ||
+            /*
+            there must be atleast 2 repeated roots
+            otherwise they are not repeated
+            */
+            !(XOR((array[i][1] >= 2), (array[i][1] === 0))) ||
+            /*
+            and in case of imaginary it will be 4
+            because of conjugate pairing
+            */
+            !(XOR((array[i][3] >= 4), (array[i][3] === 0)))
+        ) {
+            array.splice(i, 1);
+        }
+    }
+    // set different filters for different polynomial degree parity
+    for (let i = array.length - 1; i > -1; i--) {
+        if (checkParity(degree) === 'even') {
+            // check if there are not even number of real roots
+            if (checkParity(array[i][0] + array[i][1]) !== 'even') {
+                // otherwise delete that element
+                array.splice(i, 1);
+            }
+        }
+        else if (checkParity(degree) === 'odd') {
+            // check if there are not odd number of real roots
+            if (checkParity(array[i][0] + array[i][1]) !== 'odd') {
+                // otherwise delete that element
+                array.splice(i, 1);
+            }
+        }
+    }
+    return array;
+}
+
 function XOR(a, b) {
     return ( a || b ) && !( a && b );
 }
