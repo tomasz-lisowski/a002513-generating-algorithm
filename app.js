@@ -52,7 +52,8 @@ function compute (degree) {
     let parity = checkParity(degree);
     let combinationArray = createCombinationArray(degree);
     combinationArray = filterArray(combinationArray, degree);
-    //combinationArray = iterateAndPartition(combinationArray, 1);
+    combinationArray = iterateAndPartition(combinationArray, 1, 2, 'real');
+    combinationArray = iterateAndPartition(combinationArray, 3, 6, 'imaginary');
 
     // print out the answer
     console.log(combinationArray);
@@ -254,33 +255,57 @@ a function that iterates over an array and manages situations
 where a number at desired index can be partitioned
 and returns all those extra elements
 */
-function iterateAndPartition (array, index) {
+function iterateAndPartition (array, index, minValueInPartition, realOrImaginary) {
     console.log('Iterating and Partitioning...');
-    // create array where the generated partitions will be stored
-    let partitions = new Array();
+
+    let partitionedArray = new Array();
     /*
     iterate over every element in array to check if at index
     the number can be partitioned
     */
-    let containsOne;
-    for (let i; i < array.length; i++) {
-        if (array[i][index] > 4) {
+    for (let i = 0; i < array.length; i++) {
+        // create array where the generated partitions will be stored
+        let partitions = new Array();
+        /*
+        when the number is larger than or equal 4
+        it can be partitioned without the use of 1's (groups of size 1)
+        which would be incorrect as it would represent a unique root
+        */
+        if (array[i][index] >= (minValueInPartition * 2)) {
+            // get all partitions for the number at index
             for (let output of partition(array[i][index])) {
-                containsOne = false;
-                for (let j; j < output.length; j++) {
-                    if (output[j] === 1) {
-                        containsOne = true;
-                        break;
+                if (realOrImaginary === 'real') {
+                    // this makes sure output does not contain unique roots
+                    if (output[output.length - 1] >= minValueInPartition) {
+                        partitions.push(output);
                     }
                 }
-                if (containsOne === true) {
-                    partitions.push(output);
+                else if (realOrImaginary === 'imaginary') {
+                    /*
+                    this makes sure output does not contain unique roots
+                    and works with the type of root provided
+                    */
+                    if (
+                        (output[output.length - 1] >= minValueInPartition) &&
+                        (output[output.length - 1] % 2 === 0)
+                    ) {
+                        partitions.push(output);
+                    }
                 }
             }
-            for (let i; i < partitions.length; i++) {
-
+            if (realOrImaginary === 'real') {
+                for (let j = 0; j < partitions.length; j++) {
+                    partitionedArray.push(array[i]);
+                    partitionedArray[0][1] = partitions[j];
+                }
+            }
+            else if (realOrImaginary === 'imaginary') {
+                for (let j = 0; j < partitions.length; j++) {
+                    partitionedArray.push(array[i]);
+                    partitionedArray[0][3] = partitions[j];
+                }
             }
         }
     }
-    return partitions;
+    return array.concat(partitionedArray);
 }
