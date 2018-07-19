@@ -254,6 +254,8 @@ function* partition(n) {
 a function that iterates over an array and manages situations
 where a number at desired index can be partitioned
 and returns all those extra elements
+making sure partitions with groups
+smaller than minValueInPartition are not counted
 */
 function iterateAndPartition (array, index, minValueInPartition, realOrImaginary) {
     console.log('Iterating and Partitioning...');
