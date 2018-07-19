@@ -235,4 +235,38 @@ function* partition(n) {
         yield array.slice(0, length + 1);
     }
 	return array;
+/*
+a function that iterates over an array and manages situations
+where a number at desired index can be partitioned
+and returns all those extra elements
+*/
+function iterateAndPartition (array, index) {
+    console.log('Iterating and Partitioning...');
+    // create array where the generated partitions will be stored
+    let partitions = new Array();
+    /*
+    iterate over every element in array to check if at index
+    the number can be partitioned
+    */
+    let containsOne;
+    for (let i; i < array.length; i++) {
+        if (array[i][index] > 4) {
+            for (let output of partition(array[i][index])) {
+                containsOne = false;
+                for (let j; j < output.length; j++) {
+                    if (output[j] === 1) {
+                        containsOne = true;
+                        break;
+                    }
+                }
+                if (containsOne === true) {
+                    partitions.push(output);
+                }
+            }
+            for (let i; i < partitions.length; i++) {
+
+            }
+        }
+    }
+    return partitions;
 }
