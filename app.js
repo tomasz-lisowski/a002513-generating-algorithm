@@ -97,22 +97,11 @@ function createCombinationArray (degree) {
             }
         }
     }
-
-    // write all combinations to a file
-    var file = fs.createWriteStream('array.txt');
-    file.on('error', function(err) { /* error handling */ });
-    array.forEach(function(numberSet) {
-        file.write('[' + numberSet.join(', ') + '],' + '\n');
-    });
-    file.write(array.length)
-    file.end();
-
     return array;
 };
 
 // is the degree odd or even?
 function checkParity (number) {
-    console.log('Finding Parity...');
     if (isNaN(number) === false) {
         // check if remainder after dividing input by 2 is not 0
         if (number % 2 !== 0) {
