@@ -193,7 +193,7 @@ function* partition(n) {
     return number itself [ number ]
     basically a sum of one integer
     */
-    yield [ n ];
+    //yield [ n ];
 
     // working array
     let array = new Array(n);
