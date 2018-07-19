@@ -1,2 +1,2 @@
 # Polynomial-Root-Combinations
-I used this code in my extended essay. It was meant to speed up computation of potential solutions.
+Algorithm that finds all combinations of roots for a given polynomial degree. The amount of these combinations is described in [A002513](https://oeis.org/A002513) integer sequence.
