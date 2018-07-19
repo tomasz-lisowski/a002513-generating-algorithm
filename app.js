@@ -11,7 +11,7 @@
 	Ur_x : x repeated imaginary roots
 */
 
-var fs = require('fs');
+const fs = require('fs');
 
 const { PerformanceObserver, performance } = require('perf_hooks');
 const obs = new PerformanceObserver((items) => {
