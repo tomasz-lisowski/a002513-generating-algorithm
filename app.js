@@ -167,6 +167,8 @@ function filterArray (array, degree) {
 		}
 	}
 	return array;
+function XOR(a, b) {
+    return ( a || b ) && !( a && b );
 }
 
 function* partition(n) {
