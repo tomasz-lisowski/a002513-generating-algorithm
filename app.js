@@ -3,12 +3,12 @@
 0  1  2  3  4  5   6   7   8   9
 
 NOTE:
-Ur_x	|	Rr_x	|	Ui_x	|	Ri_x
-‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  Ur_x  |  Rr_x  |  Ui_x  |  Ri_x
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 Ur_x : x unique real roots
 Rr_x : x repeated real roots (multiple Rr groups inside array)
 Ui_x : x unique imaginary roots
-Ur_x : x repeated imaginary roots
+Ur_x : x repeated imaginary roots (multiple Ri groups inside array)
 */
 
 const fs = require('fs');
