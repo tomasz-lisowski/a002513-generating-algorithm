@@ -55,6 +55,23 @@ function compute (degree) {
     combinationArray = iterateAndPartition(combinationArray, 1, 2, 'real');
     combinationArray = iterateAndPartition(combinationArray, 3, 6, 'imaginary');
 
+    let computationJSONResult = {
+        n: degree,
+        combinations: {
+            no: combinationArray.length,
+            list: combinationArray
+        }
+    }
+
+    fs.writeFile(`./computed/${degree}.json`, JSON.stringify(computationJSONResult), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        };
+        console.log("File has been created");
+    });
+
+
     // print out the answer
     console.log(combinationArray);
     console.log(combinationArray.length);
