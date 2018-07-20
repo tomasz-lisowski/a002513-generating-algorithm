@@ -312,17 +312,14 @@ function iterateAndPartition (array, index, minValueInPartition, realOrImaginary
                     }
                 }
             }
-            if (realOrImaginary === 'real') {
-                for (let j = 0; j < partitions.length; j++) {
-                    partitionedArray.push(array[i]);
-                    partitionedArray[0][1] = partitions[j];
-                }
-            }
-            else if (realOrImaginary === 'imaginary') {
-                for (let j = 0; j < partitions.length; j++) {
-                    partitionedArray.push(array[i]);
-                    partitionedArray[0][3] = partitions[j];
-                }
+            /*
+            for every partitioned element from array
+            copy that element and exchange the element at chosen index
+            with a partition at index j (than repeat for all partitions)
+            */
+            for (let j = 0; j < partitions.length; j++) {
+                partitionedArray.push(array[i]);
+                partitionedArray[0][index] = partitions[j];
             }
         }
     }
