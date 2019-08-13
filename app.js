@@ -137,7 +137,7 @@ function checkRootArrangement (arrangement, degree, position) {
   /*
   condition definition for arrangement checker functions
   */
-  const arrangementCheckerConditions2 = {
+  // const arrangementCheckerConditions2 = {
     upToPos0: (arrangement, degree) => {
       return true
     },
