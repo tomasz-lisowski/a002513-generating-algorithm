@@ -1,0 +1,23 @@
+{
+  "name": "polynomial-root-combinations",
+  "version": "2.0.0",
+  "description": "Algorithm that finds all arrangements of roots for a given polynomial degree. The amount of these arrangements is described by the [A002513](https://oeis.org/A002513) integer sequence.",
+  "main": "app.js",
+  "scripts": {
+    "test": "standard",
+    "test:fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aerophare263/Polynomial-Root-Combinations.git"
+  },
+  "author": "Tomasz Lisowski (Aerophare263)",
+  "bugs": {
+    "url": "https://github.com/Aerophare263/Polynomial-Root-Combinations/issues"
+  },
+  "homepage": "https://github.com/Aerophare263/Polynomial-Root-Combinations#readme",
+  "type": "module",
+  "devDependencies": {
+    "standard": "^13.1.0"
+  }
+}

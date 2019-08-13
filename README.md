@@ -1,4 +1,4 @@
-# Polynomial-Root-Permutations
-Algorithm that finds all combinations of roots for a given polynomial degree. The amount of these combinations is described in [A002513](https://oeis.org/A002513) integer sequence.
+# Polynomial Root Arrangements
+Algorithm that finds all arrangements of roots for a given polynomial degree. The amount of these arrangements is described by the [A002513](https://oeis.org/A002513) integer sequence.
 
-###### Incomplete
+###### **Incomplete**
