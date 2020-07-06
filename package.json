@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aerophare263/Polynomial-Root-Combinations.git"
+    "url": "git+https://github.com/tomasz-lisowski/A002513-generating-algorithm.git"
   },
   "author": "Tomasz Lisowski",
   "bugs": {
-    "url": "https://github.com/Aerophare263/Polynomial-Root-Combinations/issues"
+    "url": "https://github.com/tomasz-lisowski/A002513-generating-algorithm/issues"
   },
-  "homepage": "https://github.com/Aerophare263/Polynomial-Root-Combinations#readme",
+  "homepage": "https://github.com/tomasz-lisowski/A002513-generating-algorithm#readme",
   "type": "module",
   "devDependencies": {
     "standard": "^13.1.0"
